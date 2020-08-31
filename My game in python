@@ -1,0 +1,344 @@
+from time import sleep
+from random import randint
+import sys
+
+#Cores
+c = {'red': '\033[1;31m', 'ye': '\033[1;33m', 'pur': '\033[1;35m', 'cea': '\033[1;36m', 'gre': '\033[1;32m', 'f': '\033[m'}
+
+#Enunciado
+print('{}NOWHERE...{}'.format(c['gre'], c['f']))
+print('{}Ande por quartos a procura de recursos, encontre-os e descubra o que fazer com eles.{}'.format(c['cea'], c['f']))
+print('{}Para ver a sua moxila precione m. A moxila só pode ser acessada em certos momentos do jogo.{}'.format(c['cea'], c['f']))
+
+#Parte lógica
+m = []
+
+#Quarto cinco
+def q5():
+	print('Você esta em um quarto escuro, deseja vasculhar? y/n')
+	q5va = str(input('==: ')).lower()
+	
+	if q5va == 'y':
+		print('Você encontra um cofre.')
+		print('Deseja tentar abrir o cofre? y/n')
+		
+		def q5co():
+			q5cop = str(input('==: ')).lower()
+			
+			if 'Senha' in m and q5cop == 'y':
+				m.append('Chave2')
+				print('Você encontrou uma chave vermelha.')
+				
+			elif len(m) < 2 and q5cop == 'y':
+				print('Não é possivel abrir este cofre, é necessário uma senha.')
+		
+		q5co()
+	else:
+		print('Você ve uma criatura estranha chegando de si mas não consegue se mexer')
+		r = randint(1, 2)
+		def mao():
+			if r == 1:
+				print('{}Você é morto por uma criatura desconhecida e medonha...{}'.format(c['red'], c['f']))
+			else:
+				print('Você é muito sortudo e consegue sair com vida desviando da criatura.')
+				print('Eufórico e deseperado você pula da casa e sobrevive.')
+				print('{}VOCE SAIU DA CASA COM VIDA...{}'.format(c['gre'], c['f']))
+		mao()
+		sys.exit()
+		
+	print('Este quarto é estranho, existe uma janela aberta e o quarto esta muito sujo, deseja investigar? y/n')
+	
+	q5inv = str(input('==: ')).lower()
+	
+	if q5inv == 'y':
+		print('Você encontra um caminho que leva a uma porta.')
+		
+		def q5por():
+			print('Você tenta abrir a porta mas a porta está trancada')
+			
+			if 'Chave2' in m:
+				print('Deseja usar a chave vermelha para abrir a porta? y/n')
+				
+				def q5f():
+					q5fim = str(input('==: ')).lower()
+					
+					if q5fim == 'y':
+						print('Você abre a porta e encontra um corredor que leva a um porão, deseja entrar no porão? y/n')
+						
+						def q5fimp():
+							q5fimpr = str(input('==: ')).lower()
+							
+							if q5fimpr == 'y':
+								print('Você se esconde no porão até o amanhecer e logo ao nascer do sol a policia chega para o seu socorro.')
+								print('{}VOCE SAIU DA CASA COM VIDA...{}'.format(c['gre'], c['f']))
+								sys.exit()
+								
+							else:
+								print('Você ouve algo se aproximando, você entra no porão? y/n')
+								def q5fimqu():
+									fim = str(input('==: ')).lower()
+									
+									if fim == 'y':
+										print('{}VOCE SAIU DA CASA COM VIDA...{}'.format(c['gre'], c['f']))
+										sys.exit()
+									
+									else:
+										print('{}Você é morto por uma criatura desconhecida e medonha...{}'.format(c['red'], c['f']))
+								q5fimqu()
+						q5fimp()	
+				q5f()
+			else:
+						print('Você ve uma criatura estranha chegando de si mas não consegue se mexer')
+						r = randint(1, 2)
+						def mao():
+							if r == 1:
+								print('{}Você é morto por uma criatura desconhecida e medonha...{}'.format(c['red'], c['f']))
+							else:
+								print('Você é muito sortudo e consegue sair com vida desviando da criatura.')
+								print('Eufórico e deseperado você pula da casa e sobrevive.')
+								print('{}VOCE SAIU DA CASA COM VIDA...{}'.format(c['gre'], c['f']))
+						mao()
+						sys.exit()
+		q5por()
+				
+	else:
+							def q5of():
+								print('Você ouve algo se aproximando, você entra no porão? y/n')
+								def q5ofq():
+									fim = str(input('==: ')).lower()
+									
+									if fim == 'y':
+										print('Você se esconde no porão até o amanhecer quando dois policiais o resgatam.')
+										print('{}VOCE SAIU DA CASA COM VIDA...{}'.format(c['gre'], c['f']))
+										sys.exit()
+									
+									else:
+										print('{}Você é morto por uma criatura desconhecida e medonha...{}'.format(c['red'], c['f']))
+								q5ofq()
+							q5of()
+					
+
+#Quarto quatro
+def q4():
+	print('Você está em um quarto escuro, deseja vaslculhar? y/n')
+	q4va = str(input('==: ')).lower()
+	
+	if len(m) >= 3 and q4va == 'y':
+		m.append('Senha')
+		print('Você encontrou uma senha.')
+	
+	elif len(m) < 3 and q4va == 'y':
+		print('Não à nada aqui.')
+		
+	print('Este quarto é sem saída, deseja voltar ao corredor? y/n')
+	q4p2 = str(input('==: ')).lower()
+	
+	if q4p2 == 'y':
+		bifurc2()
+		
+	else:
+		print('Este quarto não tem saída, deseja voltar? y/n')
+		
+		def q4s():
+			q4p3 = str(input('==: ')).lower()
+			
+			if q4p3 == 'y':
+				bifurc2()
+			
+			else:
+				print('{}FIM de Jogo.{}'.format(c['red'], c['f']))
+				
+		q4s()
+
+
+#Bifurcação 2
+def bifurc2():
+    print('Existem dois quartos a sua frente, o da direita "d" e o da esquerda "e", ou digite "v" para voltar ao quarto anterior.')
+    b2p = str(input('==: ')).lower()
+    
+    if b2p == 'd':
+        q4()
+    elif b2p == 'e':
+        q5()
+    elif b2p == 'v':
+        q3()
+
+
+#Quarto três
+def q3():
+    print('Você está em um quarto escuro, deseja vasculhar? y/n')
+    q3va = str(input('==: ')).lower()
+    if q3va == 'y':
+        m.append('Carta')
+        print('Você encontrou uma carta.')
+    print('Você pode acessar a sua mochila precionando "m" ou se não quiser "n"')
+    q3m = str(input('==: ')).lower()
+    if q3m == 'm':
+        print(m)
+        
+    print('Existe um corredor a sua frente, deseja seguir em frente "f" ou voltar ao quarto anterior "v"?')
+    q3es = str(input('==: ')).lower()
+    if q3es == 'f':
+        bifurc2()
+    elif q3es == 'v':
+        pbifurc()
+    else:
+        print('{}FIM de Jogo.{}'.format(c['red'], c['f']))
+
+
+#Quarto dois
+def q2():
+	print('Você está em um quarto brilhante, deseja vasculhar? y/n')
+	q2va = str(input('==: ')).lower()
+	
+	if q2va == 'y':
+		m.append('Livro')
+		print('Você encontrou um livro velho')
+		
+		print('Quarto sem saída deseja voltar? y/n')
+		def q2vl():
+		    q2vlq = str(input('==: ')).lower()
+		    
+		    if q2vlq == 'y':
+		        q1()
+		        
+		    else:
+		        print('O quarto é sem saída deseja voltar? y/n')
+		        def q2vlq():
+		            q2vlp = str(input('==: ')).lower()
+		            if q2vlp == 'y':
+		                q1()
+		            
+		            else:
+		                print('{}FIM de Jogo.{}'.format(c['red'], c['f']))
+		                sys.exit()
+		        q2vlq()
+		q2vl()
+		
+	else:
+		print('O quarto é sem saída, deseja voltar para o quarto anterior? y/n')
+		
+		def q2dec():
+			q2dep = str(input('==: ')).lower()
+			
+			if q2dep == 'y':
+				q1()
+				
+			else:
+				print('Não há nada a ser feito aqui, deseja voltar? y/n')
+				def q2dec2():
+					q2dep2 = str(input('==: ')).lower()
+			
+					if q2dep2 == 'y':
+						q1()
+					
+					else:
+						print('{}FIM de Jogo.{}'.format(c['red'], c['f']))
+						sys.exit()
+				q2dec2
+				
+		q2dec()
+	
+
+#Quarto um
+def q1():
+	print('Você está em um quarto escuro, deseja vasculhar? y/n')
+	q1va = str(input('==: ')).lower()
+	if q1va == 'y':
+		m.append('Chave1')
+		print('Você encontrou uma chave verde.')
+		
+		
+	print('A sua frente existe um quarto, deseja adentra-lo? y/n')
+	q1av = str(input('==: ')).lower()
+	if q1av == 'y':
+		q2()
+			
+	else:
+		print('deseja voltar ao corredor? y/n')
+			
+		q12av = str(input('==: ')).lower()
+			
+		def vac():
+			if q12av == 'y':
+				pbifurc()
+			
+			else:
+				print('A sua frente existe um quarto, deseja adentra-lo? y/n')
+				q13av = str(input('==: ')).lower()
+						
+				def vac2():
+					if q13av == 'y':
+						q2()
+						
+					else:
+						print('{}FIM de Jogo.{}'.format(c['red'], c['f']))
+						sys.exit()
+						
+				vac2()
+				
+		vac()
+			
+
+#Começo
+def start():
+	print('Você está em um quarto escuro com uma porta trancada.')
+	if 'Chave1' in m:
+		print('Você deseja usar a chave verde para abrir a porta? y/n')
+		
+		def cpo():
+			cpoq = str(input('==: ')).lower()
+			
+			if cpoq == 'y':
+				print('Você sai da casa que estava mas é morto por uma criatura negra e medonha.')
+				print('{}VOCÊ MORREU.{}'.format(c['red'], c['f']))
+				sys.exit()
+		cpo()
+	
+	print('Deseja vasculhar? y/n')
+	sac = str(input('==: ')).lower()
+	
+	if sac == 'y':
+		print('Você vasculha mas não encontra nada.')
+		
+	print('Há um corredor a sua frente, deseja avançar? y/n')
+	sav = str(input('==: ')).lower()
+		
+	if sav == 'y':
+		pbifurc()
+		
+	elif sav == 'n':
+		print('Há um corredor a sua frente, deseja avançar? y/n')
+		def s2av():
+			
+			s2av = str(input('==: '))
+	
+			if s2av == 'y':
+				pbifurc()
+				
+			else:
+				print('{}FIM DE JOGO...{}'.format(c['red'], c['f']))
+			
+		s2av()
+	
+	else:
+		print('{}FIM de Jogo.{}'.format(c['red'], c['f']))
+	
+	
+#Bifurcação 1
+def pbifurc():
+	print('Você está em um corredor com uma bifurcação, deseja ir para a direita "d", esquerda "e" ou voltar ao primeiro quarto "q"?')
+	
+	bes = str(input('==: ')).lower()
+	
+	if bes == 'd':
+		q1()
+		
+	elif bes == 'q':
+		start()
+	
+	elif bes == 'e':
+		q3()
+	
+	
+start()
